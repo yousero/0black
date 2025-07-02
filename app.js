@@ -7,7 +7,7 @@ const bodyParser = require('koa-bodyparser');
 const path = require('path');
 const router = require('./routes');
 const { initDB } = require('./db');
-const CSRF = require('@koa/csrf');
+const CSRF = require('koa-csrf');
 const ratelimit = require('koa-ratelimit');
 
 process.on('uncaughtException', (err) => {
@@ -43,7 +43,7 @@ app.use(bodyParser());
 app.use(serve(path.join(__dirname, 'public')));
 app.use(views(path.join(__dirname, 'views'), { extension: 'pug' }));
 
-app.use(new CSRF());
+app.use(new CSRF({ invalidSessionSecretMessage: 'Invalid session secret', invalidTokenMessage: 'Invalid CSRF token', excludedMethods: ['GET', 'HEAD', 'OPTIONS'] }));
 
 app.use(async (ctx, next) => {
   ctx.state.session = ctx.session;
