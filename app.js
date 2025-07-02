@@ -8,6 +8,7 @@ const path = require('path');
 const router = require('./routes');
 const { initDB } = require('./db');
 const CSRF = require('@koa/csrf');
+const ratelimit = require('koa-ratelimit');
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
@@ -59,6 +60,24 @@ app.use(async (ctx, next) => {
     }
   }
   
+  await next();
+});
+
+const limiter = ratelimit({
+  driver: 'memory',
+  db: new Map(),
+  duration: 5 * 60 * 1000, // 5 minutes
+  errorMessage: 'Too many requests, please try again later.',
+  id: (ctx) => ctx.ip,
+  max: 5,
+  whitelist: (ctx) => false,
+  blacklist: (ctx) => false,
+});
+
+app.use(async (ctx, next) => {
+  if (["/login", "/register"].includes(ctx.path) && ctx.method === "POST") {
+    return limiter(ctx, next);
+  }
   await next();
 });
 

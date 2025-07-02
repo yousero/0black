@@ -1,11 +1,11 @@
 {
   "name": "0black",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "microblogging service",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -23,12 +23,17 @@
     "bcrypt": "^6.0.0",
     "koa": "^3.0.0",
     "koa-bodyparser": "^4.4.1",
+    "koa-ratelimit": "^5.0.1",
     "koa-router": "^13.1.1",
     "koa-session": "^5.13.1",
     "koa-static": "^5.0.0",
     "koa-views": "^8.1.0",
     "pug": "^3.0.3",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "supertest": "^6.3.3"
+  },
+  "devDependencies": {
+    "jest": "^30.0.3"
   }
 }
