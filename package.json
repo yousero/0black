@@ -1,6 +1,6 @@
 {
   "name": "0black",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "microblogging service",
   "main": "app.js",
   "scripts": {
