@@ -1,0 +1,33 @@
+{
+  "name": "0black",
+  "version": "0.0.1",
+  "description": "microblogging service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yousero/0black.git"
+  },
+  "keywords": [],
+  "author": "yousero",
+  "license": "AGPL-3.0",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/yousero/0black/issues"
+  },
+  "homepage": "https://github.com/yousero/0black#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "koa": "^3.0.0",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^13.1.1",
+    "koa-session": "^5.13.1",
+    "koa-static": "^5.0.0",
+    "koa-views": "^8.1.0",
+    "pug": "^3.0.3",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  }
+}

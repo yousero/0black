@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .auth-forms
+    .login
+      h2 Login
+      form(action="/login" method="POST")
+        input(type="text" name="username" placeholder="Username" required)
+        input(type="password" name="password" placeholder="Password" required)
+        button(type="submit") Login
+
+    .register
+      h2 Register
+      form(action="/register" method="POST")
+        input(type="text" name="username" placeholder="Username" required)
+        input(type="email" name="email" placeholder="Email" required)
+        input(type="password" name="password" placeholder="Password" required)
+        button(type="submit") Register
+  if error
+    .error= error

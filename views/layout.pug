@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Content Service
+    link(rel='stylesheet' href='/style.css')
+  body
+    header
+      if session && session.user
+        nav
+          a(href=`/${session.user.username}`) My Profile
+          a(href='/settings') Settings
+          a(href='/logout') Logout
+      else
+        nav
+          a(href='/') Home
+    main
+      block content

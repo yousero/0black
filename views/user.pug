@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= user.username
+  if session && session.user && session.user.id === user.id
+    .create-post
+      form(action="/post" method="POST")
+        textarea(name="content" placeholder="Write your post..." required)
+        button(type="submit") Publish
+
+  .posts
+    each post in posts
+      .post
+        .content= post.content
+        .date= post.created_at

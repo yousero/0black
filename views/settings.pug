@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Account Settings
+  form(action="/settings" method="POST")
+    label Email:
+    input(type="email" name="email" value=user.email required)
+    
+    label New Password (leave blank to keep current):
+    input(type="password" name="password")
+    
+    button(type="submit") Update Settings
