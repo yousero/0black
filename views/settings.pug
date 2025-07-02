@@ -2,7 +2,8 @@ extends layout
 
 block content
   h1 Account Settings
-  form(action="/settings" method="POST")
+  form(method="post" action="/settings")
+    input(type="hidden" name="_csrf" value=csrf)
     label Email:
     input(type="email" name="email" value=user.email required)
     

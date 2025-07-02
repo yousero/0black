@@ -52,11 +52,12 @@ class User {
     });
   }
 
-  static updatePassword(id, password) {
+  static async updatePassword(id, password) {
+    const hashedPassword = await bcrypt.hash(password, 10);
     return new Promise((resolve, reject) => {
       db.run(
         'UPDATE users SET password = ? WHERE id = ?',
-        [password, id],
+        [hashedPassword, id],
         function(err) {
           if (err) reject(err);
           resolve();

@@ -30,15 +30,12 @@ module.exports = {
       ctx.redirect('/');
       return;
     }
-    
     const { content } = ctx.request.body;
-    const userId = ctx.session.user.id;
-    
-    if (!content) {
+    if (!content || content.length < 1 || content.length > 280) {
       ctx.redirect(`/${ctx.session.user.username}`);
       return;
     }
-    
+    const userId = ctx.session.user.id;
     await Post.create({ userId, content });
     ctx.redirect(`/${ctx.session.user.username}`);
   }

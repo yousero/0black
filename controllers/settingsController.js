@@ -23,11 +23,17 @@ module.exports = {
     
     try {
       if (email) {
+        if (!email.includes('@')) {
+          throw new Error('Invalid email format');
+        }
         await User.updateEmail(userId, email);
         ctx.session.user.email = email;
       }
       
       if (password) {
+        if (password.length < 6) {
+          throw new Error('Password too short');
+        }
         await User.updatePassword(userId, password);
       }
       
@@ -35,7 +41,7 @@ module.exports = {
     } catch (err) {
       await ctx.render('settings', { 
         user: ctx.session.user, 
-        error: 'Failed to update settings',
+        error: err.message || 'Failed to update settings',
         session: ctx.session
       });
     }

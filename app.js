@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Koa = require('koa');
 const session = require('koa-session');
 const views = require('koa-views');
@@ -6,6 +7,7 @@ const bodyParser = require('koa-bodyparser');
 const path = require('path');
 const router = require('./routes');
 const { initDB } = require('./db');
+const CSRF = require('@koa/csrf');
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
@@ -24,7 +26,7 @@ try {
   console.error('Database initialization failed:', dbError);
 }
 
-app.keys = ['your-secret-key'];
+app.keys = [process.env.SESSION_SECRET || 'your-secret-key'];
 app.use(session({
   key: 'koa.sess',
   maxAge: 86400000,
@@ -36,14 +38,17 @@ app.use(session({
   renew: false,
 }, app));
 
-app.use(async (ctx, next) => {
-  ctx.state.session = ctx.session;
-  await next();
-});
-
 app.use(bodyParser());
 app.use(serve(path.join(__dirname, 'public')));
 app.use(views(path.join(__dirname, 'views'), { extension: 'pug' }));
+
+app.use(new CSRF());
+
+app.use(async (ctx, next) => {
+  ctx.state.session = ctx.session;
+  ctx.state.csrf = ctx.csrf;
+  await next();
+});
 
 app.use(async (ctx, next) => {
   const publicRoutes = ['/', '/login', '/register'];

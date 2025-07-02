@@ -4,7 +4,8 @@ block content
   h1= user.username
   if session && session.user && session.user.id === user.id
     .create-post
-      form(action="/post" method="POST")
+      form(method="post" action="/post")
+        input(type="hidden" name="_csrf" value=csrf)
         textarea(name="content" placeholder="Write your post..." required)
         button(type="submit") Publish
 
